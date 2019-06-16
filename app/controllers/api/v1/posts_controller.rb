@@ -5,11 +5,11 @@ module Api
 
       def index
         @posts = Post.all
-        respond_with(@posts)
+        respond_with PostSerializer.new(@posts).serialized_json
       end
 
       def show
-        respond_with(@post)
+        respond_with PostSerializer.new(@post)
       end
 
       def create

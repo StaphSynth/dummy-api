@@ -5,11 +5,11 @@ module Api
 
       def index
         @users = User.all
-        respond_with(@users)
+        respond_with UserSerializer.new(@users).serialized_json
       end
 
       def show
-        respond_with(@user)
+        respond_with UserSerializer.new(@user).serialized_json
       end
 
       def create

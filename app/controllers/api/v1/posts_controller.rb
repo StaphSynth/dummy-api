@@ -4,8 +4,9 @@ module Api
       before_action :set_post, only: [:show, :update, :destroy]
 
       def index
-        @posts = Post.all
-        respond_with PostSerializer.new(@posts).serialized_json
+        posts = paginate Post.all
+
+        render json: PostSerializer.new(posts).serialized_json
       end
 
       def show

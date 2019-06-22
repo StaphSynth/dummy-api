@@ -4,8 +4,9 @@ module Api
       before_action :set_user, only: [:show, :update, :destroy]
 
       def index
-        @users = User.all
-        respond_with UserSerializer.new(@users).serialized_json
+        users = paginate User.all
+
+        render json: UserSerializer.new(users).serialized_json
       end
 
       def show

@@ -10,6 +10,8 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'responders'
 gem 'faker'
 gem 'fast_jsonapi'
+gem 'will_paginate'
+gem 'api-pagination'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

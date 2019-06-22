@@ -5,8 +5,9 @@ module Api
 
       def index
         users = paginate User.all
+        options = PaginationMetadata.new(request, users).perform
 
-        render json: UserSerializer.new(users).serialized_json
+        render json: UserSerializer.new(users, options).serialized_json
       end
 
       def show

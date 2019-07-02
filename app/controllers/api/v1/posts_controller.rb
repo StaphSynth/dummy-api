@@ -11,7 +11,7 @@ module Api
       end
 
       def show
-        respond_with PostSerializer.new(@post)
+        render json: PostSerializer.new(@post)
       end
 
       def create

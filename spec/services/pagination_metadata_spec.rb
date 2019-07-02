@@ -32,7 +32,7 @@ describe PaginationMetadata, type: :service do
       allow(paginated_resource).to receive(:total_entries).and_return(total_entries)
     end
 
-    it 'returns a has with meta and links keys' do
+    it 'returns a hash with meta and links keys' do
       result = subject.perform
 
       expect(result).to be_a(Hash)

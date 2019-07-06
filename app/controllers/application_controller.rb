@@ -8,5 +8,6 @@ class ApplicationController < ActionController::API
   respond_to :json
 
   rescue_from ActionController::UnknownFormat, with: :respond_400
+  rescue_from ActionController::ParameterMissing, with: :respond_400
   rescue_from ActiveRecord::RecordNotFound, with: :respond_404
 end

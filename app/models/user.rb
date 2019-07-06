@@ -16,6 +16,7 @@ class User < ApplicationRecord
   }
 
   validates :phone_number, {
+    allow_blank: true,
     length: { is: 10 },
     format: { with: /\A[0-9]{10}\z/ },
     uniqueness: true

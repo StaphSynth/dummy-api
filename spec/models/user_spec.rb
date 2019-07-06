@@ -24,7 +24,7 @@ describe User, type: :model do
     end
 
     describe 'phone number' do
-      it { is_expected.to validate_uniqueness_of :phone_number }
+      it { is_expected.to validate_uniqueness_of(:phone_number).allow_blank }
       it { is_expected.to validate_length_of :phone_number }
       it_behaves_like :a_format_validator, :phone_number, '1234567890', '123456789X'
     end

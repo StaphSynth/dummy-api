@@ -14,7 +14,8 @@ gem 'will_paginate'
 gem 'api-pagination'
 
 group :development, :test do
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'pry-byebug'
+  gem 'pry-rails'
   gem 'factory_bot_rails'
 end
 

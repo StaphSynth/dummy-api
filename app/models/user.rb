@@ -21,4 +21,6 @@ class User < ApplicationRecord
     format: { with: /\A[0-9]{10}\z/ },
     uniqueness: true
   }
+
+  alias_attribute :admin?, :admin
 end

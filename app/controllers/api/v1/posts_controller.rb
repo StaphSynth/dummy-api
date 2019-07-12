@@ -1,8 +1,6 @@
 module Api
   module V1
     class PostsController < ApplicationController
-      before_action :set_post, only: [:show, :update, :destroy]
-
       def index
         posts = paginate Post.all
         options = PaginationMetadata.new(request, posts).perform
@@ -11,27 +9,24 @@ module Api
       end
 
       def show
-        render json: PostSerializer.new(@post)
+        render json: post.to_json
       end
 
       def create
-        @post = Post.new(post_params)
-        @post.save
-        respond_with(@post)
+        respond_501
       end
 
       def update
-        @post.update(post_params)
-        respond_with(@post)
+        respond_501
       end
 
       def destroy
-        @post.destroy
-        respond_with(@post)
+        respond_501
       end
 
     private
-      def set_post
+
+      def post
         @post = Post.find(params[:id])
       end
 

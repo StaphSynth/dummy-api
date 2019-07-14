@@ -4,7 +4,8 @@ require 'faker'
   User.create!(
     name: Faker::Name.name,
     email: Faker::Internet.email,
-    phone_number: Array.new(10) { rand(10) }.join
+    phone_number: Array.new(10) { rand(10) }.join,
+    password: Faker::Internet.password
   )
 end
 

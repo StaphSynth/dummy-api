@@ -9,6 +9,8 @@ describe User, type: :model do
   end
 
   describe 'validations' do
+    it { is_expected.to have_secure_password }
+
     describe 'name' do
       it { is_expected.to validate_presence_of :name }
       it { is_expected.to validate_length_of :name }

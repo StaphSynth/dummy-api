@@ -5,6 +5,7 @@ FactoryBot.define do
     name { Faker::Name.name }
     sequence(:email) { |n| "user_##{n}@example.com" }
     phone_number { Array.new(10) { rand(10) }.join }
+    password { Faker::Internet.password }
   end
 
   factory :post do

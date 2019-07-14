@@ -12,6 +12,8 @@ gem 'faker'
 gem 'fast_jsonapi'
 gem 'will_paginate'
 gem 'api-pagination'
+gem 'jwt'
+gem 'bcrypt'
 
 group :development, :test do
   gem 'pry-byebug'

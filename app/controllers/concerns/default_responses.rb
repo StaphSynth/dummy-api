@@ -3,6 +3,10 @@ module DefaultResponses
     render json: { error: 'bad request', status: 400 }, status: :bad_request
   end
 
+  def respond_401
+    render json: { error: "couldn't authenticate you", status: 401 }, status: :unauthorized
+  end
+
   def respond_404
     render json: { error: 'record not found', status: 404 }, status: :not_found
   end

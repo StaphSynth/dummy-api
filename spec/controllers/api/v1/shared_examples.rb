@@ -95,3 +95,19 @@ shared_examples :a_show_endpoint do |resource|
     end
   end
 end
+
+shared_examples :responds_401 do
+  describe 'when the controller responds 401' do
+
+    it { is_expected.to respond_with :unauthorized }
+
+    it 'returns JSON describing the error' do
+      output = JSON.parse(response.body)
+      expected = %w(error status)
+
+      output.each do |key, _value|
+        expect(expected).to include(key)
+      end
+    end
+  end
+end

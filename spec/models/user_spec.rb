@@ -33,4 +33,24 @@ describe User, type: :model do
       it_behaves_like :a_format_validator, :phone_number, '1234567890', '123456789X'
     end
   end
+
+  describe '#update_auth_token!' do
+    let(:old_token) { Faker::Internet.device_token }
+    let(:new_token) { Faker::Internet.device_token }
+    let(:user) do
+      user = create(:user)
+      user.update(auth_token: old_token)
+      user
+    end
+
+    before do
+      allow(SecureRandom).to receive(:hex).and_return(new_token)
+    end
+
+    it "rotates the user's private auth token" do
+      expect(user.auth_token).to eq(old_token)
+      user.update_auth_token!
+      expect(user.auth_token).to eq(new_token)
+    end
+  end
 end

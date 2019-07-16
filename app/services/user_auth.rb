@@ -14,7 +14,7 @@ class UserAuth
 
   def authenticate
     @authenticating = true
-    JsonWebToken.encode(user_id: user.id)
+    JsonWebToken.encode(user_id: user.id, auth_token: user.auth_token)
 
   rescue JWT::EncodeError
     raise AuthenticationError
@@ -26,35 +26,40 @@ class UserAuth
   alias :authenticating? :authenticating
 
   def user
-    @user ||= begin
-      if authenticating?
-        authenticate_user
-      else
-        User.find(decoded_token[:user_id])
-      end
-
-    rescue ActiveRecord::RecordNotFound
-      raise AuthorizationError
+    @user ||= if authenticating?
+      authenticate_user
+    else
+      authorize_user
     end
   end
 
   def authenticate_user
     user = User.find_by(email: params[:email])
-    return user if user.present? && user.authenticate(params[:password])
+
+    return user if user.present? &&
+      user.authenticate(params[:password]) &&
+      user.update_auth_token!
 
     raise AuthenticationError
   end
 
-  def decoded_token
-    @decoded_token ||= JsonWebToken.decode(token)
+  def authorize_user
+    user = User.find_by(id: decoded_jwt[:user_id])
+    return user if user.present? && user.authenticate_auth_token(decoded_jwt[:auth_token])
+
+    raise AuthorizationError
+  end
+
+  def decoded_jwt
+    @decoded_jwt ||= JsonWebToken.decode(jwt)
 
   rescue JWT::DecodeError
     raise AuthorizationError
   end
 
-  def token
-    token = headers[:authorization]
-    return token unless token.blank?
+  def jwt
+    jwt = headers[:authorization]
+    return jwt unless jwt.blank?
 
     raise AuthorizationError
   end

@@ -3,7 +3,10 @@ class User < ApplicationRecord
 
   has_many :posts
 
+  before_create :set_auth_token
+
   has_secure_password
+  has_secure_password :auth_token, validations: false
 
   validates :name, {
     presence: true,
@@ -25,4 +28,15 @@ class User < ApplicationRecord
   }
 
   alias_attribute :admin?, :admin
+
+  def update_auth_token!
+    set_auth_token
+    save
+  end
+
+  private
+
+  def set_auth_token
+    self.auth_token = SecureRandom.hex(16)
+  end
 end

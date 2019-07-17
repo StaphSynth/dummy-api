@@ -28,6 +28,10 @@ group :development do
 end
 
 group :test do
-  gem 'rspec-rails', '~> 3.8'
   gem 'shoulda-matchers', '~> 4.1.0'
+  gem 'shoulda-callback-matchers', '~> 1.1.1'
+end
+
+group :development, :test do
+  gem 'rspec-rails', '~> 3.8'
 end

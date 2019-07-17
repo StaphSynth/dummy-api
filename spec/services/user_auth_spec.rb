@@ -19,9 +19,7 @@ describe UserAuth, type: :service do
   let(:auth_token_2) { Faker::Internet.device_token }
   let(:user_password) { Faker::Internet.password }
   let(:user) do
-    user = create(:user)
-    user.update(auth_token: auth_token, password: user_password)
-    user
+    create(:user, auth_token: auth_token, password: user_password)
   end
   let(:user_email) { user.email }
   let(:params) { { email: user_email, password: user_password } }

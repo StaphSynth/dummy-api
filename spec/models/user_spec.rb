@@ -4,6 +4,10 @@ require_relative './shared_examples'
 describe User, type: :model do
   it_behaves_like :serializable_record
 
+  describe 'callbacks' do
+    it { is_expected.to callback(:set_auth_token).before(:create) }
+  end
+
   describe 'associations' do
     it { is_expected.to have_many :posts }
   end
@@ -37,11 +41,7 @@ describe User, type: :model do
   describe '#update_auth_token!' do
     let(:old_token) { Faker::Internet.device_token }
     let(:new_token) { Faker::Internet.device_token }
-    let(:user) do
-      user = create(:user)
-      user.update(auth_token: old_token)
-      user
-    end
+    let(:user) { create(:user, auth_token: old_token) }
 
     before do
       allow(SecureRandom).to receive(:hex).and_return(new_token)

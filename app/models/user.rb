@@ -3,7 +3,8 @@ class User < ApplicationRecord
 
   has_many :posts
 
-  before_create :set_auth_token
+  before_create :set_auth_token,
+    unless: Proc.new { |user| user.auth_token.present? }
 
   has_secure_password
   has_secure_password :auth_token, validations: false
